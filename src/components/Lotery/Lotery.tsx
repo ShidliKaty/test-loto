@@ -13,7 +13,7 @@ import {
     getFieldNumbers,
 } from '../../utils/numbersGenerator';
 import { Heading } from '../Heading';
-import { NumbersBlock } from '../NumbersBlock';
+import { NumbersBlock } from './NumbersBlock/NumbersBlock';
 
 interface LoteryProps {
     setResult: (value: boolean) => void;
