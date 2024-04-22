@@ -18,6 +18,7 @@ body {
     display: flex;
     flex-direction: column;
     width: 550px;
+    min-height: 500px;
     justify-content: flex-start;
     align-items: flex-start;
     border: 1px solid #d9d7d7;
@@ -111,6 +112,7 @@ h3 {
     .ticket-block {
         width: 320px;
         padding: 20px 15px 40px 15px;
+        min-height: 400px;
     }
 
     .numbers-block {
