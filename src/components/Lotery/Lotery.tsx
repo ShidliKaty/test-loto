@@ -8,12 +8,10 @@ import {
     SECOND_MATCH_COUNT,
 } from '../../const/fieldsNumbers';
 import { checkMatchNumbers } from '../../utils/matchNumbersChecker';
-import {
-    generateUniqueRandomNumbers,
-    getFieldNumbers,
-} from '../../utils/numbersGenerator';
+import { getFieldNumbers } from '../../utils/numbersGenerator';
 import { Heading } from '../Heading';
 import { NumbersBlock } from './NumbersBlock/NumbersBlock';
+import { pickRandomNumbers } from '../../utils/numbersPicker';
 
 interface LoteryProps {
     setResult: (value: boolean) => void;
@@ -23,6 +21,9 @@ export const Lotery = (props: LoteryProps) => {
     const { setResult } = props;
     const [firstPickedNums, setFirstPickedNums] = useState<number[]>([]);
     const [secondPickedNums, setSecondPickedNums] = useState<number[]>([]);
+
+    const firstFieldNumbers = getFieldNumbers(19);
+    const secondFieldNumbers = getFieldNumbers(2);
 
     const isButtonDisabled =
         firstPickedNums.length < 8 || secondPickedNums.length < 1;
@@ -57,15 +58,27 @@ export const Lotery = (props: LoteryProps) => {
     };
 
     const onPickRandomNumbers = () => {
-        const firstRandomNumbers = generateUniqueRandomNumbers(19, 8);
-        const secondRandomNumbers = generateUniqueRandomNumbers(2, 1);
+        const firstRandomNumbers = pickRandomNumbers(
+            firstFieldNumbers,
+            FIRST_FIELD_MAX_PICKS,
+        );
+        const secondRandomNumbers = pickRandomNumbers(
+            secondFieldNumbers,
+            SECOND_FIELD_MAX_PICKS,
+        );
         setFirstPickedNums(firstRandomNumbers);
         setSecondPickedNums(secondRandomNumbers);
     };
 
     const onCheckResult = () => {
-        const firstRandomNumbers = generateUniqueRandomNumbers(19, 8);
-        const secondRandomNumbers = generateUniqueRandomNumbers(2, 1);
+        const firstRandomNumbers = pickRandomNumbers(
+            firstFieldNumbers,
+            FIRST_FIELD_MAX_PICKS,
+        );
+        const secondRandomNumbers = pickRandomNumbers(
+            secondFieldNumbers,
+            SECOND_FIELD_MAX_PICKS,
+        );
 
         // оставляю console.log для упрощения проверки задания
         console.log('random numbers', firstRandomNumbers, secondRandomNumbers);
@@ -99,14 +112,14 @@ export const Lotery = (props: LoteryProps) => {
             </Heading>
             <>
                 <NumbersBlock
-                    numbers={getFieldNumbers(19)}
+                    numbers={firstFieldNumbers}
                     pickedNumbers={firstPickedNums}
                     onPickNumber={(num) => onPickNumber(num, 'first')}
                     maxPicks={FIRST_FIELD_MAX_PICKS}
                     fieldNumber={1}
                 />
                 <NumbersBlock
-                    numbers={getFieldNumbers(2)}
+                    numbers={secondFieldNumbers}
                     pickedNumbers={secondPickedNums}
                     onPickNumber={(num) => onPickNumber(num, 'second')}
                     maxPicks={SECOND_FIELD_MAX_PICKS}

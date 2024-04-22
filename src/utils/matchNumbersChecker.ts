@@ -1,8 +1,11 @@
 export const checkMatchNumbers = (firstArr: number[], secondArr: number[]) => {
     let matchCount = 0;
+    const arrSet = new Set(firstArr);
 
-    firstArr.forEach((n) => {
-        if (secondArr.includes(n)) return matchCount++;
-    });
+    for (const number of secondArr) {
+        if (arrSet.has(number)) {
+            matchCount++;
+        }
+    }
     return matchCount;
 };
